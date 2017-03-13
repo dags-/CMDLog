@@ -44,7 +44,7 @@ public class CMDLog {
 
     @Listener
     public void reload(GameReloadEvent event) {
-        String logTemplate = "\\[{date}-{time}] {name} (w:{world}, l:{position}): '/{input}'";
+        String logTemplate = "[dark_aqua]([aqua]({name}) used the command [aqua]('/{command}') in world [aqua]({world}) at [aqua]({position}))";
         String dateFormat = "dd/MM/yy";
         String timeFormat = "hh:mm:ss";
 
@@ -74,7 +74,7 @@ public class CMDLog {
                 .with("name", source.getName())
                 .with("world", getWorld(source))
                 .with("position", getPosition(source))
-                .with("input", getInput(event.getCommand(), event.getArguments()))
+                .with("command", getInput(event.getCommand(), event.getArguments()))
                 .render();
 
         Sponge.getServer().getConsole().sendMessage(log);
