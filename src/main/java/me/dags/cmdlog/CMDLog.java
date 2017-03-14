@@ -9,7 +9,6 @@ import ninja.leaping.configurate.loader.ConfigurationLoader;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.config.DefaultConfig;
-import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.Order;
 import org.spongepowered.api.event.command.SendCommandEvent;
@@ -17,6 +16,7 @@ import org.spongepowered.api.event.filter.cause.Root;
 import org.spongepowered.api.event.game.GameReloadEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.text.Text;
+import org.spongepowered.api.world.Locatable;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -44,7 +44,7 @@ public class CMDLog {
 
     @Listener
     public void reload(GameReloadEvent event) {
-        String template = "[dark_aqua]([aqua]({name}) used the command [aqua]('/{command}') in world [aqua]({world}) at [aqua]({position}))";
+        String template = "[dark_aqua]([aqua]({name}) issued the command [aqua]('/{command}') in world [aqua]({world}) at [aqua]({position}))";
         String date = "dd/MM/yy";
         String time = "hh:mm:ss";
 
@@ -81,16 +81,16 @@ public class CMDLog {
     }
 
     private static String getWorld(CommandSource source) {
-        if (source instanceof Entity) {
-            Entity located = (Entity) source;
+        if (source instanceof Locatable) {
+            Locatable located = (Locatable) source;
             return located.getWorld().getName();
         }
         return "-";
     }
 
     private static String getPosition(CommandSource source) {
-        if (source instanceof Entity) {
-            Entity located = (Entity) source;
+        if (source instanceof Locatable) {
+            Locatable located = (Locatable) source;
             Vector3i pos = located.getLocation().getBlockPosition();
             return String.format("%s,%s,%s", pos.getX(), pos.getY(), pos.getZ());
         }
