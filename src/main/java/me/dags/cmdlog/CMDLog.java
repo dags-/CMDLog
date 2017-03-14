@@ -44,22 +44,22 @@ public class CMDLog {
 
     @Listener
     public void reload(GameReloadEvent event) {
-        String logTemplate = "[dark_aqua]([aqua]({name}) used the command [aqua]('/{command}') in world [aqua]({world}) at [aqua]({position}))";
-        String dateFormat = "dd/MM/yy";
-        String timeFormat = "hh:mm:ss";
+        String template = "[dark_aqua]([aqua]({name}) used the command [aqua]('/{command}') in world [aqua]({world}) at [aqua]({position}))";
+        String date = "dd/MM/yy";
+        String time = "hh:mm:ss";
 
         CommentedConfigurationNode node = load(config);
-        logTemplate = node.getNode("template").getString(logTemplate);
-        dateFormat = node.getNode("date_format").getString(dateFormat);
-        timeFormat = node.getNode("time_format").getString(timeFormat);
+        template = node.getNode("template").getString(template);
+        date = node.getNode("date_format").getString(date);
+        time = node.getNode("time_format").getString(time);
 
-        node.getNode("template").setValue(logTemplate);
-        node.getNode("date_format").setValue(dateFormat);
-        node.getNode("time_format").setValue(timeFormat);
+        node.getNode("template").setValue(template);
+        node.getNode("date_format").setValue(date);
+        node.getNode("time_format").setValue(time);
 
-        this.template = main.template(logTemplate);
-        this.dateFormat = new SimpleDateFormat(dateFormat);
-        this.timeFormat = new SimpleDateFormat(timeFormat);
+        this.template = main.template(template);
+        this.dateFormat = new SimpleDateFormat(date);
+        this.timeFormat = new SimpleDateFormat(time);
 
         save(config, node);
     }
@@ -85,7 +85,7 @@ public class CMDLog {
             Entity located = (Entity) source;
             return located.getWorld().getName();
         }
-        return "n/a";
+        return "-";
     }
 
     private static String getPosition(CommandSource source) {
@@ -94,7 +94,7 @@ public class CMDLog {
             Vector3i pos = located.getLocation().getBlockPosition();
             return String.format("%s,%s,%s", pos.getX(), pos.getY(), pos.getZ());
         }
-        return "n/a";
+        return "-";
     }
 
     private static String getInput(String command, String args) {
