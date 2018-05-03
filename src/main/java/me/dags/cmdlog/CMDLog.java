@@ -26,7 +26,7 @@ import java.util.Date;
 /**
  * @author dags <dags@dags.me>
  */
-@Plugin(id = "cmdlog", name = "CMDLog", version = "0.1", description = "Log commands to console")
+@Plugin(id = "cmdlog", name = "CMDLog", version = "0.2", description = "Log commands to console")
 public class CMDLog {
 
     private final MarkupSpec main = MarkupSpec.create();
